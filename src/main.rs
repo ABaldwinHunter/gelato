@@ -1,5 +1,17 @@
 use std::io;
 
+fn count_overlap(secret: &str, guess: &str) -> usize {
+    // determine number of letters correct
+    let mut score = 0;
+    for letter in secret.chars() {
+        if guess.contains(letter) {
+            score += 1;
+        }
+    }
+
+    score
+}
+
 fn main() {
     // accept word from player 1
     // extra: validate that letters unique
@@ -35,14 +47,22 @@ fn main() {
             println!("Ya got it right!");
             break;
         } else {
-            // determine number of letters correct
-            let mut score = 0;
-            for letter in secret.chars() {
-                if guess.contains(letter) {
-                    score += 1;
-                }
-            }
-            println!("{} - {}", guess, score);
+            println!("{} - {}", guess, count_overlap(secret, guess));
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use count_overlap;
+
+    #[test]
+    fn test_count_overlap() {
+        assert_eq!(count_overlap("night", "light"), 4);
+    }
+
+    #[test]
+    fn test_count_overlap_duplicate_letters() {
+        assert_eq!(count_overlap("night", "nnnnn"), 1);
     }
 }
