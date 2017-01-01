@@ -1,0 +1,6 @@
+[package]
+name = "gelato"
+version = "0.1.0"
+authors = ["ABaldwinHunter <abaldwinhunter@codeclimate.com>"]
+
+[dependencies]
