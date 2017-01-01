@@ -1,15 +1,7 @@
 use std::io;
 
 fn count_overlap(secret: &str, guess: &str) -> usize {
-    // determine number of letters correct
-    let mut score = 0;
-    for letter in secret.chars() {
-        if guess.contains(letter) {
-            score += 1;
-        }
-    }
-
-    score
+    secret.chars().filter(|letter| guess.contains(*letter)).count()
 }
 
 fn main() {
