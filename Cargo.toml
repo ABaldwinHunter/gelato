@@ -1,6 +1,6 @@
 [package]
 name = "gelato"
 version = "0.1.0"
-authors = ["ABaldwinHunter <abaldwinhunter@codeclimate.com>"]
+authors = ["Ashley Baldwin-Hunter <abaldwinhunter@codeclimate.com>", "Max Jacobson <max@hardscrabble.net>"]
 
 [dependencies]
