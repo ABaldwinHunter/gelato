@@ -1,3 +1,6 @@
+mod word_list;
+use word_list::WordList;
+
 use std::io;
 
 fn count_overlap(secret: &str, guess: &str) -> usize {
@@ -19,15 +22,19 @@ fn main() {
     // validity of history
     // AI that could guess strategically
 
+    let words = WordList::new();
+
     println!("Player one: what is your word?");
     let mut raw_secret = String::new();
     io::stdin().read_line(&mut raw_secret).expect("Failed to read line");
     let secret = raw_secret.trim();
 
+    if words.invalid_input(secret) {
+        panic!("No bueno input!!!");
+    }
+
     // clear screen
     print!("{}[2J", 27 as char);
-
-    // println!("Shhh your secret is: {:?}", secret);
 
     println!("Player two: what is your guess?");
     loop {
@@ -38,6 +45,9 @@ fn main() {
         if guess == secret {
             println!("Ya got it right!");
             break;
+        } else if words.invalid_input(guess) {
+            println!("Bad input!");
+            continue;
         } else {
             println!("{} - {}", guess, count_overlap(secret, guess));
         }
