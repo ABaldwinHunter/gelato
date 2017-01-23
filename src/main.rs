@@ -12,6 +12,8 @@ fn main() {
 
     let secret = words.sample();
 
+    let mut guess_count = 0;
+
     println!("OK, thought of a secret word. From a list of {} words.", words.count());
     println!("What is your guess?");
     loop {
@@ -20,12 +22,14 @@ fn main() {
         let guess = raw_guess.trim();
 
         if guess == secret {
-            println!("Ya got it right!");
+            guess_count += 1;
+            println!("Ya got it right, in {} guesses!", guess_count);
             break;
         } else if words.invalid_input(guess) {
             println!("Bad input!");
             continue;
         } else {
+            guess_count += 1;
             println!("{} - {}", guess, count_overlap(secret, guess));
         }
     }
