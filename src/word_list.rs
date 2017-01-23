@@ -1,5 +1,7 @@
 use std::io::prelude::*;
 use std::fs::File;
+extern crate rand;
+use self::rand::distributions::{IndependentSample, Range};
 
 pub struct WordList {
     words: Vec<String>,
@@ -26,6 +28,13 @@ impl WordList {
 
     pub fn invalid_input(&self, other_word: &str) -> bool {
         !self.words.iter().any(|word| word == other_word)
+    }
+
+    pub fn sample(&self) -> &str {
+        let between = Range::new(0, self.words.len());
+        let mut rng = rand::thread_rng();
+        let index = between.ind_sample(&mut rng);
+        &self.words[index]
     }
 
     fn valid(word: &str) -> bool {
