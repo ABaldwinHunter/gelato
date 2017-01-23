@@ -12,6 +12,7 @@ fn main() {
 
     let secret = words.sample();
 
+    println!("OK, thought of a secret word. From a list of {} words.", words.count());
     println!("What is your guess?");
     loop {
         let mut raw_guess = String::new();

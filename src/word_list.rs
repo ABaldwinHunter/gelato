@@ -37,6 +37,10 @@ impl WordList {
         &self.words[index]
     }
 
+    pub fn count(&self) -> usize {
+        self.words.len()
+    }
+
     fn valid(word: &str) -> bool {
         word.chars().count() == 5 &&
             char::is_lowercase(word.chars().nth(0).unwrap()) &&
