@@ -6,9 +6,21 @@ struct Expander {
 }
 
 impl Expander {
-    fn via(word: &str) -> Vec<&str> {
-        vec!["hello"]
+    fn via(word: &str) -> Vec<String> {
+        // TODO: make this smarter
+        vec![
+            word.to_owned(),
+            format!("{}s", word),
+            format!("{}ing", word),
+            format!("{}ed", word),
+        ]
     }
+}
+
+#[test]
+fn test_expander() {
+    assert_eq!(Expander::via("dog"), vec!["dog", "dogs", "doging", "doged"]);
+    assert_eq!(Expander::via("walk"), vec!["walk", "walks", "walking", "walked"]);
 }
 
 fn main() {
@@ -24,14 +36,10 @@ fn main() {
     let mut s = String::new();
     f.read_to_string(&mut s).unwrap();
 
-    // println!("Input dictionary contents: {:?}", s);
-
-    let mut words: Vec<&str> = vec![];
+    let mut words: Vec<String> = vec![];
 
     for word in s.lines() {
-        // if !&word.capitalized?
         if &word == &word.to_lowercase() {
-            words.push(&word);
             for expanded_word in Expander::via(&word) {
                 words.push(expanded_word);
             }
@@ -39,4 +47,6 @@ fn main() {
     }
 
     println!("{:?}", words);
+
+    // TODO: write to the output file
 }
