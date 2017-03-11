@@ -10,7 +10,7 @@ pub struct WordList {
 impl WordList {
     // TODO: return a Result?
     pub fn new() -> WordList {
-        let mut f = File::open("/usr/share/dict/words").unwrap();
+        let mut f = File::open("./src/fixtures/words").unwrap();
         let mut s = String::new();
         f.read_to_string(&mut s).unwrap();
         let mut words = vec![];
