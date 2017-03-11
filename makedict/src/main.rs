@@ -8,6 +8,7 @@ struct Expander {
 impl Expander {
     fn via(word: &str) -> Vec<String> {
         // TODO: make this smarter
+        // make two functions - pluralize and conjugate
         vec![
             word.to_owned(),
             format!("{}s", word),
@@ -15,12 +16,46 @@ impl Expander {
             format!("{}ed", word),
         ]
     }
+
+    fn pluralize(word: &str) -> String {
+        word.to_owned()
+    }
 }
 
 #[test]
 fn test_expander() {
     assert_eq!(Expander::via("dog"), vec!["dog", "dogs", "doging", "doged"]);
     assert_eq!(Expander::via("walk"), vec!["walk", "walks", "walking", "walked"]);
+}
+
+#[test]
+fn test_expander_pluralize() {
+    // works for nouns and verbs indiscriminately
+    // assumes none of our inputs are already pluralized
+
+    // ends in a consonant
+    assert_eq!(Expander::pluralize("dog"), "dogs");
+    assert_eq!(Expander::pluralize("walk"), "walks");
+    // ends in a vowel that's not y
+    assert_eq!(Expander::pluralize("stigma"), "stimgas");
+    assert_eq!(Expander::pluralize("name"), "names");
+
+    // ends in  consonant followed by y
+    assert_eq!(Expander::pluralize("sky"), "skies");
+    // ends in  vowel followed by y
+    assert_eq!(Expander::pluralize("pray"), "prays");
+    // ends in i
+    assert_eq!(Expander::pluralize("ski"), "skis");
+    // ends in sh or ch
+    assert_eq!(Expander::pluralize("fish"), "fishes");
+    assert_eq!(Expander::pluralize("church"), "churches");
+    // ends in z
+    assert_eq!(Expander::pluralize("quiz"), "quizzes");
+    // ends in ss
+    assert_eq!(Expander::pluralize("glass"), "glasses");
+    // doesn't end in ss, but ends in s
+    assert_eq!(Expander::pluralize("gas"), "gasses");
+
 }
 
 fn main() {
