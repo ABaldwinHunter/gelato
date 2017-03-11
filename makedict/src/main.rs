@@ -46,7 +46,16 @@ fn main() {
         }
     }
 
-    println!("{:?}", words);
+    let mut output = String::new();
 
-    // TODO: write to the output file
+    for word in words.into_iter().filter(|word| word.len() == 5) {
+        output.push_str(&word);
+        output.push_str("\n");
+    }
+
+    let mut computed_file = File::create(computed_dict_path).unwrap();
+
+    computed_file.write_all(output.as_bytes()).unwrap();
+
+    println!("Updated {}", computed_dict_path);
 }
