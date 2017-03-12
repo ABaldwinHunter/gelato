@@ -1,4 +1,4 @@
-.PHONY: dict
+.PHONY: dict dict_test
 
 FULL_DICT ?= /usr/share/dict/words
 
